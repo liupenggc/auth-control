@@ -70,6 +70,7 @@
         <property name="staticMethod" value="org.apache.shiro.SecurityUtils.setSecurityManager"/>
         <property name="arguments" ref="securityManager"/>
     </bean>
+
     <!-- 基于Form表单的身份验证过滤器 -->
     <bean id="formAuthenticationFilter" class="com.test.shiro.filter.WithNavibarFormAuthenticationFilter">
         <property name="usernameParam" value="username"/>
@@ -89,7 +90,7 @@
             <value>
                 /=authc
                 /index=authc
-                /user/login=authc<!-- 使用authc -->
+                /user/login=authc       <!-- 使用authc -->
                 /logout=logout
                 /static/**=anon<!-- 静态资源文件访问 -->
                 /**=user

@@ -70,6 +70,7 @@
         <property name="staticMethod" value="org.apache.shiro.SecurityUtils.setSecurityManager"/>
         <property name="arguments" ref="securityManager"/>
     </bean>
+
     <!-- 基于Form表单的身份验证过滤器 -->
     <bean id="formAuthenticationFilter" class="com.test.shiro.filter.WithNavibarFormAuthenticationFilter">
         <property name="usernameParam" value="username"/>
@@ -85,17 +86,27 @@
                 <entry key="authc" value-ref="formAuthenticationFilter"/>
             </util:map>
         </property>
-        <property name="filterChainDefinitions">
+        <!--<property name="filterChainDefinitions">
             <value>
                 /=authc
                 /index=authc
-                /user/login=authc<!-- 使用authc -->
+                /user/login=authc       &lt;!&ndash; 使用authc &ndash;&gt;
                 /logout=logout
-                /static/**=anon<!-- 静态资源文件访问 -->
+                /static/**=anon&lt;!&ndash; 静态资源文件访问 &ndash;&gt;
                 /**=user
             </value>
-        </property>
+        </property>-->
+        <!-- 将数据迁移到数据库中，动态获取 -->
+        <property name="filterChainDefinitionMap" ref="filterChainDefinitionMap"></property>
     </bean>
+
+    <!-- 配置一个 bean, 该 bean 实际上是一个 Map. 通过实例工厂方法的方式 -->
+    <bean id="filterChainDefinitionMap"
+          factory-bean="filterChainDefinitionMapBuilder" factory-method="buildFilterChainDefinitionMap"></bean>
+
+    <bean id="filterChainDefinitionMapBuilder"
+          class="com.test.shiro.factory.FilterChainDefinitionMapBuilder"></bean>
+
 
     <!-- Shiro生命周期处理器-->
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>

@@ -195,6 +195,7 @@
              </configuration>
        </plugin>
     </plugins>
+      <!-- 资源文件夹 用户扫描mybatis的配置文件 -->
       <resources>
           <resource>
               <directory>${basedir}/src/main/java</directory>
@@ -202,6 +203,7 @@
                   <exclude>**/*.java</exclude>
               </excludes>
           </resource>
+          <!-- 过滤所有的占位符 basedir指最外面的目录-->
           <resource>
               <filtering>true</filtering>
               <directory>${basedir}/src/main/java/config</directory>
